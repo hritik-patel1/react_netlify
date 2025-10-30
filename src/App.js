@@ -1,5 +1,3 @@
-import Card from '@mui/material/Card';
-import React from 'react';
 import CardBa from './components/Card';
 import BasicForm from './components/Form';
 import { Container } from '@mui/material';
