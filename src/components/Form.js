@@ -1,38 +1,28 @@
-import { TextField, Button, Box } from '@mui/material';
+// ...existing code...
+import React, { useState } from 'react';
+import { Box, TextField, Button } from '@mui/material';
 
-function BasicForm() {
+function BasicForm({ onAdd }) {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!title.trim()) return;
+    const newItem = { title: title.trim(), content: content.trim() };
+    if (typeof onAdd === 'function') onAdd(newItem);
+    setTitle('');
+    setContent('');
+  };
+
   return (
-    <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Hello"
-        />
-        <TextField
-          id="outlined-basic"
-          label="Basic"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-disabled"
-          label="Disabled"
-          variant="outlined"
-          disabled
-        />
-      </div>
-      <Button variant="contained" type="submit">
-        Submit
-      </Button>
+    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <TextField label="Title"  onChange={(e) => setTitle(e.target.value)} fullWidth />
+      <TextField label="Content" onChange={(e) => setContent(e.target.value)} multiline rows={3} fullWidth />
+      <Button type="submit" variant="contained">Add Card</Button>
     </Box>
   );
 }
+
 export default BasicForm;
+// ...existing code...

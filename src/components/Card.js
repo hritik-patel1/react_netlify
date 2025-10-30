@@ -5,19 +5,24 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";    
 
-function CardBa() {
+function CardBa({idx, title, content, onDelete}) {
+  const handleDelete = () => {
+    if (typeof onDelete === "function") {
+      onDelete(idx);
+    }
+  } 
   return (
     <Card sx={{ maxWidth: 345, mt: 2, mb: 2 }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Card Title
+          {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          This is the content of the card.
+          {content}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button onClick={handleDelete} size="small">Delete</Button>
       </CardActions>
     </Card>
   );
